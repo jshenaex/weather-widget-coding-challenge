@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import exampleWeatherData from './exampleWeatherData';
 import useDateInfo from './useDateInfo';
 import './styles.css';
 
@@ -20,23 +19,17 @@ function App() {
   }, []);
 
   const filteredWeatherDataArray = weatherDataArray.reduce((acc, cur) => {
-    const { date, dayOfWeekName } = useDateInfo(cur.dt);
+    const dayOfWeekName = useDateInfo(cur.dt).dayOfWeekName;
+    console.log(dayOfWeekName);
     if (acc.length === 0 || dayOfWeekName !== acc[acc.length - 1].dayOfWeekName) {
-      acc.push({ date, dayOfWeekName, tempMin: cur.main.temp_min, tempMax: cur.main.temp_max });
+      acc.push({ dayOfWeekName, tempMin: cur.main.temp_min, tempMax: cur.main.temp_max });
+    }
+    if (dayOfWeekName === acc[acc.length - 1].dayOfWeekName) {
+      acc[acc.length - 1].tempMin = acc[acc.length - 1].tempMin > cur.main.temp_min ? cur.main.temp_min : acc[acc.length - 1].tempMin;
+      acc[acc.length - 1].tempMax = acc[acc.length - 1].tempMax < cur.main.temp_max ? cur.main.temp_max : acc[acc.length - 1].tempMax;
     }
     return acc;
   }, []);
-
-  const {
-    date, // JS date object
-    dayOfWeekName, // example: "Thursday"
-    dayOfMonthNum, // example: "28"
-    monthName, // example: "February"
-    hours, // example: "15" -- Note: format is 24hr time so "15" is 3pm;
-    minutes, // example: "05"
-    seconds, // example: "02"
-    formattedTime, // 15:05:00
-  } = useDateInfo(exampleWeatherData.timestamp);
 
   return (
     <div className='App'>
