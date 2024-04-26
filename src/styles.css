@@ -6,3 +6,30 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.weather-tiles {
+  display: flex;
+  justify-content: center;
+}
+
+.weather-tile {
+  display: flex;
+  flex-direction: column;
+  border: 1px gray solid;
+  width: 64px;
+  margin: 4px;
+}
+
+.weather-tile p {
+  margin-top: 8px;
+}
+
+.weather-tile_temps {
+  display: flex;
+  justify-content: center;
+}
+
+.weather-tile_temps span {
+  font-size: small;
+  margin: 4px;
+}
