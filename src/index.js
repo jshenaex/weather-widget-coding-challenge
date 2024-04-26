@@ -20,7 +20,6 @@ function App() {
 
   const filteredWeatherDataArray = weatherDataArray.reduce((acc, cur) => {
     const dayOfWeekName = useDateInfo(cur.dt).dayOfWeekName;
-    console.log(dayOfWeekName);
     if (acc.length === 0 || dayOfWeekName !== acc[acc.length - 1].dayOfWeekName) {
       acc.push({ dayOfWeekName, tempMin: cur.main.temp_min, tempMax: cur.main.temp_max });
     }
